@@ -7,6 +7,8 @@ import searchIcon from './assets/images/icons8-search-128.png';
 import githubIcon from './assets/images/icons8-github-100.png';
 import linkedinIcon from './assets/images/icons8-linkedin.png';
 import resumeIcon from './assets/images/icons8-paper-50.png';
+import navbaropenIcon from './assets/images/icons8-menu-30.png';
+import navbarcloseIcon from './assets/images/icons8-close-window-30.png';
 
 const App = () => {
   const [showSocials, setShowSocials] = useState(false);
@@ -117,7 +119,10 @@ const App = () => {
         {/* Navigation button and social icons at bottom */}
         <div className="bottom-nav">
           <button className="nav-button" onClick={toggleSocials}>
-            {showSocials ? '▼' : '▲'}
+            <img 
+              src={showSocials ? navbarcloseIcon : navbaropenIcon} 
+              alt={showSocials ? "Close menu" : "Open menu"}
+            />
           </button>
           <div className={`social-icons ${showSocials ? 'show' : ''}`}>
             <a href="https://github.com/BettinoCodes" className="social-icon" target="_blank" rel="noopener noreferrer">

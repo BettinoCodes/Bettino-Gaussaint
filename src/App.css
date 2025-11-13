@@ -175,7 +175,7 @@ video, .overlay {
 /* Bottom navigation */
 .bottom-nav {
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -183,27 +183,32 @@ video, .overlay {
 }
 
 .nav-button {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 1.2rem;
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 40px;
-  z-index: 4;
+  padding: 8px;
+  transition: transform 0.3s ease;
+  margin-bottom: 5rem;
 }
 
 .nav-button:hover {
-  background: rgba(255, 255, 255, 0.1);
   transform: scale(1.1);
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Optional: Add a subtle rotation for close icon */
+.nav-button:hover .nav-icon {
+  transform: rotate(90deg);
 }
 
 .social-icons {
   display: flex;
-  gap: 15px;
+  gap: 25px;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.3s ease;
