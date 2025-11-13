@@ -1,5 +1,5 @@
 # React + Vite
-![](https://bettinocodes.github.io/Bettino-Gaussaint/)
+![link](https://bettinocodes.github.io/Bettino-Gaussaint/)
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
