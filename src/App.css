@@ -1,62 +1,33 @@
-* {
+html{
+  background-color: #000000;
   margin: 0;
   padding: 0;
-  font-family: 'Comic Neue', sans-serif;
-}
-
-html, body {
-  overflow: hidden;
-  height: 100%;
-}
-
-#root {
-  height: 100%;
-}
-
-.main {
-  width: 100%;
-  height: 100vh;
   position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #000000 0%, #000000 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Remove video and overlay styles since we're using bubbles */
-video, .overlay {
-  display: none;
+body{
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.content {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  overflow: hidden;
-  z-index: 2;
-  padding: 0 20px; /* Add horizontal padding */
-  box-sizing: border-box;
-}
-
-/* Bubbles Background */
-.bubbles {
-  position: absolute;
+/* Bubbles Background - full page background */
+.bubbles-background {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
-  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .bubble {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(200, 182, 182, 0.1);
   box-shadow: 
     0 8px 32px 0 rgba(255, 255, 255, 0.1),
     inset 0 -8px 32px 0 rgba(0, 0, 0, 0.1);
@@ -64,10 +35,16 @@ video, .overlay {
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   animation: float 20s infinite ease-in-out;
-  transition: all 0.3s ease;
+  pointer-events: auto;
 }
 
-/* Bubble floating animation */
+/* Responsive bubble sizes */
+@media (max-width: 768px) {
+  .bubble {
+    animation-duration: 15s;
+  }
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
@@ -80,58 +57,87 @@ video, .overlay {
   }
 }
 
-/* Name at top center */
-.name-header {
-  margin-top: 2rem;
-  text-align: center;
-  z-index: 3;
-}
-
-.name-header h1 {
-  font-size: clamp(1.2rem, 4vw, 1.5rem); /* Responsive font size */
-  letter-spacing: 2px;
-  font-weight: 300;
-}
-
-/* Center content */
-.center-content {
+.main {
+  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  text-align: center;
-  flex-grow: 1;
-  width: 100%;
-  max-width: 1200px; /* Maximum width */
-  z-index: 3;
-  padding: 0 20px;
+  align-items: center;
+  z-index: 2;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
-.center-content h2 {
-  font-size: clamp(2rem, 8vw, 3rem); /* Responsive font size */
-  margin-bottom: 10px;
-  font-weight: 150;
+.main-content {
+  color: white;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  padding: 1rem;
+  min-height: 95vh;
+  box-sizing: border-box;
+}
+
+/* Improved responsive name header */
+.name-header {
+  margin-top: clamp(1rem, 5vh, 3rem);
+  text-align: center;
+  z-index: 3;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.name-header h1 {
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  letter-spacing: clamp(1px, 0.5vw, 3px);
+  font-weight: 100;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Improved center header responsiveness */
+.center-header {
+  text-align: center;
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center-header h2 {
+  font-size: clamp(1.5rem, 8vw, 3.5rem);
+  margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+  font-weight: 300;
+  line-height: 1.2;
 }
 
 .typing-animation {
   margin-bottom: 1rem;
-  min-height: clamp(80px, 15vw, 120px); /* Responsive min-height */
+  min-height: clamp(60px, 20vh, 120px);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
+/* Improved search bar container */
 .search-bar-container {
   position: relative;
-  display: inline-block;
-  width: min(90%, 700px); /* Responsive width - 90% of parent but max 700px */
+  width: 100%;
+  max-width: min(600px, 90vw);
   border: 2px solid white;
-  border-radius: 50px;
-  padding: clamp(10px, 3vw, 15px) clamp(40px, 8vw, 60px) clamp(10px, 3vw, 15px) clamp(15px, 4vw, 30px);
+  padding: clamp(0.5rem, 2vw, 1rem) clamp(2rem, 8vw, 4rem) clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
   background: transparent;
   transition: all 0.3s ease;
+  box-sizing: border-box;
+  border-radius: 50px;
 }
 
 .search-bar-container:focus-within {
@@ -147,18 +153,18 @@ video, .overlay {
 
 .search-icon {
   position: absolute;
-  right: clamp(15px, 4vw, 20px); /* Responsive positioning */
+  right: clamp(0.75rem, 3vw, 1.5rem);
   top: 50%;
   transform: translateY(-50%);
   color: white;
-  font-size: clamp(1rem, 4vw, 1.5rem); /* Responsive icon size */
+  font-size: clamp(1rem, 4vw, 1.5rem);
   pointer-events: none;
   transition: all 0.3s ease;
 }
 
-.search-icon img{
-  width: 3rem;
-
+.search-icon img {
+  width: clamp(1.5rem, 6vw, 3rem);
+  height: auto;
 }
 
 .search-bar-container:focus-within .search-icon {
@@ -166,32 +172,32 @@ video, .overlay {
   transform: translateY(-50%) scale(1.1);
 }
 
-/* Typing animation responsive styles */
 .typing-container span {
-  font-size: clamp(1.5rem, 6vw, 3rem) !important; /* Responsive typing text */
-  line-height: 1.2;
+  font-size: clamp(1.25rem, 5vw, 2.5rem) !important;
+  line-height: 1.3;
+  font-weight: 300;
 }
 
-/* Bottom navigation */
-/* Update the bottom-nav styles */
+/* Improved bottom nav */
 .bottom-nav {
   position: relative;
-  margin-bottom: 2rem; /* Reduced from 5rem */
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 3;
-  width: 100%; /* Ensure it takes full width */
+  width: 100%;
+  margin-bottom: clamp(1rem, 5vh, 3rem);
+  padding: 0 1rem;
 }
 
 .nav-button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: clamp(0.5rem, 2vw, 1rem);
   transition: transform 0.3s ease;
-  margin-bottom: 1rem; /* Reduced from 5rem */
-  z-index: 4; /* Ensure button is above other elements */
+  margin-bottom: clamp(1rem, 4vh, 2.5rem);
+  z-index: 4;
 }
 
 .nav-button:hover {
@@ -199,24 +205,21 @@ video, .overlay {
 }
 
 .nav-icon {
-  width: 40px;
-  height: 40px;
+  width: clamp(30px, 8vw, 50px);
+  height: clamp(30px, 8vw, 50px);
   transition: all 0.3s ease-in-out;
-}
-
-/* Optional: Add a subtle rotation for close icon */
-.nav-button:hover .nav-icon {
-  transform: rotate(90deg);
 }
 
 .social-icons {
   display: flex;
-  gap: 25px;
+  gap: clamp(15px, 4vw, 25px);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.3s ease;
   pointer-events: none;
   z-index: 3;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .social-icons.show {
@@ -226,8 +229,8 @@ video, .overlay {
 }
 
 .social-icon img {
-  width: 40px;
-  height: 40px;
+  width: clamp(30px, 8vw, 50px);
+  height: clamp(30px, 8vw, 50px);
   display: block;
   transition: transform 0.2s;
 }
@@ -235,121 +238,50 @@ video, .overlay {
 .social-icon {
   transition: all 0.3s ease;
   border-radius: 50%;
-  padding: 5px;
+  padding: clamp(3px, 1vw, 5px);
 }
 
 .social-icon:hover {
   transform: scale(1.1);
 }
 
-/* Update mobile-specific styles */
-@media (max-width: 768px) {
-  .content {
-    padding: 0 15px;
-    justify-content: space-between; /* Ensure proper spacing */
+/* Mobile-specific improvements */
+@media (max-width: 480px) {
+  .main-content {
+    padding: 0.5rem;
+    min-height: 90vh;
   }
   
-  .center-content {
-    padding: 0 15px;
-    flex-grow: 1;
-    justify-content: center;
-  }
-  
-  .search-bar-container {
-    width: 95%;
-    padding: 12px 50px 12px 20px;
-  }
-  
-  .search-icon {
-    right: 15px;
-  }
-
-  .search-icon img {
-    width: 2.5rem; /* Slightly smaller on mobile */
-  }
-  
-  .typing-animation {
-    min-height: 80px;
-  }
-  
-  /* Ensure bottom nav is properly positioned on mobile */
-  .bottom-nav {
-    margin-bottom: 1.5rem;
-    position: relative;
-  }
-  
-  .nav-button {
+  .center-header h2 {
     margin-bottom: 0.5rem;
   }
   
-  .social-icons {
-    gap: 20px; /* Slightly smaller gap on mobile */
-  }
-  
-  .social-icon img {
-    width: 35px; /* Slightly smaller icons on mobile */
-    height: 35px;
-  }
-}
-
-@media (max-width: 480px) {
-  .content {
-    padding: 0 10px;
-  }
-  
-  .center-content {
-    padding: 0 10px;
+  .typing-animation {
+    min-height: clamp(50px, 15vh, 80px);
   }
   
   .search-bar-container {
-    width: 100%;
-    padding: 10px 45px 10px 15px;
-    border-radius: 30px;
-  }
-  
-  .search-icon {
-    right: 12px;
-  }
-
-  .search-icon img {
-    width: 2rem; /* Even smaller on very small screens */
-  }
-  
-  .typing-animation {
-    min-height: 70px;
-  }
-  
-  .name-header {
-    margin-top: 1rem;
-  }
-  
-  .bottom-nav {
-    margin-bottom: 1rem;
+    padding-left: clamp(0.75rem, 3vw, 1rem);
+    padding-right: clamp(1.5rem, 6vw, 2.5rem);
   }
   
   .social-icons {
-    gap: 15px;
-  }
-  
-  .social-icon img {
-    width: 30px;
-    height: 30px;
-  }
-  
-  /* Ensure typing text is readable on small screens */
-  .typing-container span {
-    font-size: clamp(1.2rem, 5vw, 2rem) !important;
+    gap: 12px;
   }
 }
 
-/* Add this to ensure content doesn't overflow vertically */
-.main {
-  min-height: 100vh;
-  height: 100%;
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content {
+    width: 95%;
+  }
 }
 
-.content {
-  min-height: 100vh;
+/* Large screen optimizations */
+@media (min-width: 1025px) {
+  .main-content {
+    width: 90%;
+  }
 }
 
 /* Ensure no scrollbars appear */
@@ -360,4 +292,14 @@ video, .overlay {
 * {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+/* Prevent text selection on interactive elements */
+.nav-button,
+.social-icon {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
