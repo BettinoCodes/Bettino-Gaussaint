@@ -173,13 +173,15 @@ video, .overlay {
 }
 
 /* Bottom navigation */
+/* Update the bottom-nav styles */
 .bottom-nav {
   position: relative;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem; /* Reduced from 5rem */
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 3;
+  width: 100%; /* Ensure it takes full width */
 }
 
 .nav-button {
@@ -188,7 +190,8 @@ video, .overlay {
   cursor: pointer;
   padding: 8px;
   transition: transform 0.3s ease;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem; /* Reduced from 5rem */
+  z-index: 4; /* Ensure button is above other elements */
 }
 
 .nav-button:hover {
@@ -239,33 +242,53 @@ video, .overlay {
   transform: scale(1.1);
 }
 
-/* Mobile-specific styles */
+/* Update mobile-specific styles */
 @media (max-width: 768px) {
   .content {
     padding: 0 15px;
+    justify-content: space-between; /* Ensure proper spacing */
   }
   
   .center-content {
     padding: 0 15px;
+    flex-grow: 1;
+    justify-content: center;
   }
   
   .search-bar-container {
-    width: 95%; /* Use more width on mobile */
+    width: 95%;
     padding: 12px 50px 12px 20px;
   }
   
   .search-icon {
     right: 15px;
-    font-size: 1.2rem;
   }
 
-  .search-icon img{
-    right: 15px;
-    font-size: 1.2rem;
+  .search-icon img {
+    width: 2.5rem; /* Slightly smaller on mobile */
   }
   
   .typing-animation {
-    min-height: 100px;
+    min-height: 80px;
+  }
+  
+  /* Ensure bottom nav is properly positioned on mobile */
+  .bottom-nav {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .nav-button {
+    margin-bottom: 0.5rem;
+  }
+  
+  .social-icons {
+    gap: 20px; /* Slightly smaller gap on mobile */
+  }
+  
+  .social-icon img {
+    width: 35px; /* Slightly smaller icons on mobile */
+    height: 35px;
   }
 }
 
@@ -286,25 +309,47 @@ video, .overlay {
   
   .search-icon {
     right: 12px;
-    font-size: 1rem;
   }
 
-  .search-icon img{
-    right: 15px;
-    font-size: 1.2rem;
+  .search-icon img {
+    width: 2rem; /* Even smaller on very small screens */
   }
   
   .typing-animation {
-    min-height: 80px;
+    min-height: 70px;
   }
   
   .name-header {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
   
   .bottom-nav {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-icon img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* Ensure typing text is readable on small screens */
+  .typing-container span {
+    font-size: clamp(1.2rem, 5vw, 2rem) !important;
+  }
+}
+
+/* Add this to ensure content doesn't overflow vertically */
+.main {
+  min-height: 100vh;
+  height: 100%;
+}
+
+.content {
+  min-height: 100vh;
 }
 
 /* Ensure no scrollbars appear */
