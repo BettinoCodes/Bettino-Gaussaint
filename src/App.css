@@ -111,6 +111,7 @@ video, .overlay {
 .center-content h2 {
   font-size: clamp(2rem, 8vw, 3rem); /* Responsive font size */
   margin-bottom: 10px;
+  font-weight: 150;
 }
 
 .typing-animation {
@@ -183,7 +184,7 @@ video, .overlay {
 
 .nav-button {
   background: transparent;
-  border: none;
+  border: 2px solid white;
   color: white;
   width: 40px;
   height: 40px;
@@ -191,7 +192,7 @@ video, .overlay {
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   z-index: 4;
 }
 
