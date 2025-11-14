@@ -9,6 +9,9 @@ import resumeIcon from './assets/images/icons8-paper-50.png';
 import navbaropenIcon from './assets/images/icons8-menu-30.png';
 import navbarcloseIcon from './assets/images/icons8-close-window-30.png';
 
+
+import Projects from './sections/project';
+
 const App = () => {
   const [showSocials, setShowSocials] = useState(false);
   const bubblesRef = useRef(null);
@@ -140,6 +143,8 @@ const App = () => {
             </div>
           </div>
         </div>
+        {/* Projects Section */}
+          <Projects />
     </>
   )
 }
