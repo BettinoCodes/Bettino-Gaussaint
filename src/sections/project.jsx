@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './project.css';
 
+// Import your images
+import faqSearchImage from '../assets/images/faq-search-engine.png';
+import animeVotingImage from '../assets/images/anime-voting-platform.png';
+import endlessJourneyImage from '../assets/images/endless-journey.png';
+import whackAProfImage from '../assets/images/whack-a-prof.png';
+import githubProfileImage from '../assets/images/github-profile.png';
+
 const Project = () => {
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [imageLoaded, setImageLoaded] = useState({});
+  const hoverTimeoutRef = useRef(null);
+  const hoverImageRef = useRef(null);
+
   const projects = [
-      {
+    {
       id: 1,
       name: "FAQ Search Engine - Internship",
       visibility: "private",
       tags: ["Python", "HTML", "CSS", "Javascript", "ML", "MongoDB", "Digital Ocean", "Wordpress"],
       description: "Machine learning powered FAQ page using semantic search.",
-      link: "https://estate-lawyer-ny.com/help/"
+      link: "https://estate-lawyer-ny.com/help/",
+      image: faqSearchImage
     },
     {
       id: 2,
@@ -17,7 +31,8 @@ const Project = () => {
       visibility: "public",
       tags: ["React", "Node.js", "MongoDB", "Express", "AWS", "Render"],
       description: "Full-stack anime voting platform to find the best animes to watch.",
-      link: "https://d4joto8i7bqrk.cloudfront.net/"
+      link: "https://d4joto8i7bqrk.cloudfront.net/",
+      image: animeVotingImage
     },
     {
       id: 3,
@@ -25,7 +40,8 @@ const Project = () => {
       visibility: "private",
       tags: ["Python", "ML", "Linux", "Bash", "Regex"],
       description: "A machine learning pipeline to retrieve mission/vision statements of companies from 10ks.",
-      link: "#"
+      link: "#",
+      image: ""
     },
     {
       id: 4,
@@ -33,7 +49,8 @@ const Project = () => {
       visibility: "public",
       tags: ["Java", "SQLite", "Junit", "Mobile", "Android Studio", "Teamwork"],
       description: "Endless survival zombie shooter mobile game.",
-      link: "https://github.com/BettinoCodes/Endless-Journey-Mobile"
+      link: "https://github.com/BettinoCodes/Endless-Journey-Mobile",
+      image: endlessJourneyImage
     },
     {
       id: 5,
@@ -41,31 +58,78 @@ const Project = () => {
       visibility: "public",
       tags: ["HTML", "CSS", "Javascript", "JSON", "Teamwork"],
       description: "A Whack a mole web game but instead of a mole its our professor",
-      link: "https://github.com/BettinoCodes/Whack-A-Prof"
+      link: "https://github.com/BettinoCodes/Whack-A-Prof",
+      image: whackAProfImage
     },
     {
-      id: 5,
+      id: 6,
       name: "Plenty more on my github",
       visibility: "public",
       tags: ["Continous Learner", "No Limits"],
       description: "My github profile",
-      link: "https://github.com/BettinoCodes"
+      link: "https://github.com/BettinoCodes",
+      image: githubProfileImage
     }
   ];
+
+  const handleMouseMove = (e) => {
+    setMousePosition({ x: e.clientX, y: e.clientY });
+  };
 
   const handleReadMore = (project) => {
     if (project.link && project.link !== '#') {
       window.open(project.link, '_blank', 'noopener noreferrer');
     } else {
-      // For private projects, you could show a modal or message
       console.log(`Project ${project.name} is private`);
-      // You can implement a modal here for private projects
       alert(`🚧 ${project.name} is a private project. Details are confidential.`);
     }
   };
 
+  const handleMouseEnter = (projectId) => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    
+    // Set a small delay to prevent flickering
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredProject(projectId);
+    }, 100);
+  };
+
+  const handleMouseLeave = () => {
+    // Clear timeout if mouse leaves quickly
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setHoveredProject(null);
+  };
+
+  const handleImageLoad = (projectId) => {
+    setImageLoaded(prev => ({ ...prev, [projectId]: true }));
+  };
+
+  const handleImageError = (projectId) => {
+    setImageLoaded(prev => ({ ...prev, [projectId]: false }));
+  };
+
+  // Get the current hovered project data
+  const currentHoveredProject = projects.find(project => project.id === hoveredProject);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <section className="projects-section">
+    <section 
+      className="projects-section" 
+      onMouseMove={handleMouseMove}
+    >
       <div className="projects-header">
         <h2>Projects & Experience</h2>
         <p>A collection of my recent work and contributions</p>
@@ -97,6 +161,8 @@ const Project = () => {
               <button 
                 className="read-more-btn"
                 onClick={() => handleReadMore(project)}
+                onMouseEnter={() => handleMouseEnter(project.id)}
+                onMouseLeave={handleMouseLeave}
                 aria-label={`Read more about ${project.name}`}
               >
                 Read More
@@ -106,6 +172,28 @@ const Project = () => {
           </div>
         ))}
       </div>
+
+      {/* Hover Image Display */}
+      {hoveredProject && currentHoveredProject && currentHoveredProject.image && (
+        <div 
+          ref={hoverImageRef}
+          className="project-hover-image"
+          style={{
+            left: `${mousePosition.x + 20}px`,
+            top: `${mousePosition.y + 20}px`
+          }}
+        >
+          <img 
+            src={currentHoveredProject.image}
+            alt={`Preview of ${currentHoveredProject.name}`}
+            onLoad={() => handleImageLoad(currentHoveredProject.id)}
+            onError={() => handleImageError(currentHoveredProject.id)}
+          />
+          {!imageLoaded[currentHoveredProject.id] && (
+            <div className="image-loading">Loading preview...</div>
+          )}
+        </div>
+      )}
     </section>
   );
 };

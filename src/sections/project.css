@@ -216,3 +216,85 @@
     padding: 0.25rem 0.6rem;
   }
 }
+
+/* Project Hover Image Styles */
+.project-hover-image {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  animation: fadeInUp 0.3s ease;
+  max-width: 300px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.project-hover-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.project-hover-image::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.image-loading {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+/* Animation for hover image */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-40%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+/* Ensure hover image doesn't cause overflow on mobile */
+@media (max-width: 768px) {
+  .project-hover-image {
+    display: none; /* Hide on mobile for better UX */
+  }
+  
+  .read-more-btn:hover {
+    transform: none; /* Remove hover effects on mobile */
+  }
+}
+
+/* Prevent hover image from going off-screen */
+@media (min-width: 769px) {
+  .project-hover-image {
+    max-width: min(300px, 30vw);
+  }
+}
+
