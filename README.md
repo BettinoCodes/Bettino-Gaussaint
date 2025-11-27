@@ -1,4 +1,4 @@
-# [Bettino Gaussaint] - Portfolio Website
+# Bettino Gaussaint- Portfolio Website
 
 A modern, responsive portfolio website built with React and Vite, featuring smooth typing animations and an elegant showcase of projects and experience.
 
