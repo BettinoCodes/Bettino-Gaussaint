@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './project.css';
+import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
 
 // Import your images
 import faqSearchImage from '../assets/images/faq-search-engine.png';
@@ -14,6 +15,7 @@ const Project = () => {
   const [imageLoaded, setImageLoaded] = useState({});
   const hoverTimeoutRef = useRef(null);
   const hoverImageRef = useRef(null);
+  const [sectionRef, isVisible] = useFadeInOnScroll();
 
   const projects = [
     {
@@ -127,7 +129,8 @@ const Project = () => {
 
   return (
     <section 
-      className="projects-section" 
+      ref={sectionRef}
+      className={`projects-section scroll-fade ${isVisible ? 'visible' : ''}`}
       onMouseMove={handleMouseMove}
     >
       <div className="projects-header">

@@ -1,0 +1,44 @@
+/* About Section - matches projects section style */
+.about-section {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  z-index: 2;
+  color: white;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+.about-header h2 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.about-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.about-content p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  line-height: 1.7;
+  opacity: 0.9;
+  margin: 0 0 1.25rem 0;
+}
+
+.about-content p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 0 1rem;
+  }
+}

@@ -1,5 +1,5 @@
 html{
-  background-color: #000000;
+  background-color: #0f051f;
   margin: 0;
   padding: 0;
   position: relative;
@@ -127,6 +127,26 @@ body{
   width: 100%;
 }
 
+.scroll-alert {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  opacity: 1;
+}
+
+.scroll-alert.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px); /* slides down slightly */
+  pointer-events: none; /* prevent clicking when hidden */
+}
+
+
 /* Improved search bar container */
 .search-bar-container {
   position: relative;
@@ -190,42 +210,14 @@ body{
   padding: 0 1rem;
 }
 
-.nav-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: clamp(0.5rem, 2vw, 1rem);
-  transition: transform 0.3s ease;
-  margin-bottom: clamp(1rem, 4vh, 2.5rem);
-  z-index: 4;
-}
-
-.nav-button:hover {
-  transform: scale(1.1);
-}
-
-.nav-icon {
-  width: clamp(30px, 8vw, 50px);
-  height: clamp(30px, 8vw, 50px);
-  transition: all 0.3s ease-in-out;
-}
-
+/* Spacer keeps social icons in same position as when the nav button was above them */
 .social-icons {
   display: flex;
   gap: clamp(15px, 4vw, 25px);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-  pointer-events: none;
+  margin-top: clamp(1rem, 4vh, 2.5rem);
   z-index: 3;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.social-icons.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
 }
 
 .social-icon img {
@@ -284,6 +276,18 @@ body{
   }
 }
 
+/* Scroll-triggered fade-in animation for sections */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Ensure no scrollbars appear */
 ::-webkit-scrollbar {
   display: none;
@@ -296,7 +300,6 @@ body{
 }
 
 /* Prevent text selection on interactive elements */
-.nav-button,
 .social-icon {
   -webkit-user-select: none;
   -moz-user-select: none;
